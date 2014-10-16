@@ -1,21 +1,45 @@
 package com.mkyong.user;
 
 import java.io.IOException;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
+
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.Charset;
+import java.util.logging.Logger;
+
+
+import com.google.appengine.api.log.LogQuery;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
+
 @SuppressWarnings("serial")
 public class LoginExampleServlet extends HttpServlet 
 {
+	private static final Logger log = Logger.getLogger(LoginExampleServlet.class.getName()); 
+	/*log.info("Ciok information log message");
+	log.warning("Ciok warning log message");
+	log.severe("Ciok severe log message"); 
+	*/
+	
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)	throws IOException 
 	{
+		/*LogQuery query = LogQuery.Builder.withDefaults();
+		query.includeAppLogs(true);
+		query.offset("Se llamo correctamente el metodo doGet +++++++++++++++++++++++++++++++++++++++++++++++++++");
+		*/
+		
 		System.out.println("doGet \n");
+		
+		log.severe("doGet \n");
+		
 		
 		UserService userService = UserServiceFactory.getUserService();
 		
@@ -28,7 +52,15 @@ public class LoginExampleServlet extends HttpServlet
 			System.out.println("ciok.getFederatedIdentity() 	="+ciok.getFederatedIdentity()); 
 			System.out.println("ciok.getNickname()		="+ciok.getNickname()); 
 			System.out.println("ciok.getUserId() 		="+ciok.getUserId()); 
-			System.out.println("ciok.hashCode() 		="+ciok.hashCode()); 	
+			System.out.println("ciok.hashCode() 		="+ciok.hashCode());		
+			
+			log.warning("ciok.getAuthDomain()		="+ciok.getAuthDomain()); 
+			log.warning("ciok.getEmail()		="+ciok.getEmail()); 
+			log.warning("ciok.getFederatedIdentity() 	="+ciok.getFederatedIdentity()); 
+			log.warning("ciok.getNickname()		="+ciok.getNickname()); 
+			log.warning("ciok.getUserId() 		="+ciok.getUserId()); 
+			log.warning("ciok.hashCode() 		="+ciok.hashCode());
+			
 		}
 
 		
@@ -40,8 +72,8 @@ public class LoginExampleServlet extends HttpServlet
 		if (user != null) 
 		{
 			resp.getWriter().println("Welcome,  " + user.getNickname());
-			//resp.getWriter().println("Welcome Ciok");
 			resp.getWriter().println("<a href='"+ userService.createLogoutURL(req.getRequestURI())+"'>  LogOut </a>");
+			
 		} 
 		else 
 		{
