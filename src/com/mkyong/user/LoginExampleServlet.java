@@ -12,8 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.charset.Charset;
 import java.util.logging.Logger;
 
-
-import com.google.appengine.api.log.LogQuery;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
