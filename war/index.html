@@ -20,23 +20,25 @@
   {
     if (authResult) 
     {
-    	confirm("authResult");
+    	//confirm("authResult");
     	if (authResult['error'] == undefined)
 	    {
+    		confirm("Token recuperado");
 	        gapi.auth.setToken(authResult); // Almacena el token recuperado.
-	        toggleElement('signinButton'); // Oculta el inicio de sesion si se ha accedido correctamente.
+	        //toggleElement("signinButton"); // Oculta el inicio de sesion si se ha accedido correctamente.
 	        getEmail();                    // Activa la solicitud para obtener la direcciÃ³n de correo electrÃ³nico.
-	        confirm("undefined");
+	        //confirm("undefined");
 	    } 
 	    else 
 	    {
+	    	confirm("Sin Token");
 	    	console.log('An error occurred');
 	    }
     } 
     else
     {
     	alert("Empty authResult");
-      console.log('Empty authResult');  // Se ha producido algÃºn error
+      	console.log('Empty authResult');  // Se ha producido algun error
     }
   }
 
@@ -50,31 +52,29 @@
    */
   function getEmail()
   {
-	alert("getEmail ");
+	//alert("getEmail ");
     // Carga las bibliotecas oauth2 para habilitar los metodos userinfo.
     gapi.client.load('oauth2', 'v2', function() 
    	{
     	var request = gapi.client.oauth2.userinfo.get();
     	
         request.execute(getEmailCallback);
-        llamaServlet();
+        redireccionar();
+        //llamaServlet();
     });
   }
   
   function llamaServlet()
   {
 	  alert("llamaServlet ");
-	  
-	  
   }
-  
-  
 
   function getEmailCallback(obj)
   {
   	  var el = document.getElementById('email');
-  	  alert("getEmailCallback 1 ");
+  	  //alert("getEmailCallback 1 ");
       var email = '';
+      //confirm("Inspeccion: "+obj);
 
       if (obj['email']) 
       {
@@ -82,23 +82,32 @@
       	  email = 'Email: ' + obj['email'];
       }
 
-    console.log(obj);   // Sin comentario para inspeccionar el objeto completo.
-
-    el.innerHTML = email;
-    //toggleElement('email');
+      console.log(obj);   // Sin comentario para inspeccionar el objeto completo.
+      el.innerHTML = email;
+      //toggleElement('email');
   }
 
-  function toggleElement(id) {
-    var el = document.getElementById(id);
-    if (el.getAttribute('class') == 'hide') 
-    {
-     	el.setAttribute('class', 'show');
-    } 
-    else 
-    {
-      el.setAttribute('class', 'hide');
-    }
+  function toggleElement(id) 
+  {
+	  alert("toggleElement "+id);
+	  var el = document.getElementById(id);
+	  
+	  if (el.getAttribute('class') == 'hide') 
+	  {
+		  alert("is hided "+id);
+		  el.setAttribute('class', 'show');
+	  }
+	  else 
+	  {
+		  alert("is showed "+id);
+	      el.setAttribute('class', 'hide');
+	  }
   }
+  
+  function redireccionar() 
+  {
+	  location.href="http://1-dot-brave-cistern-735.appspot.com/loginexample"
+  } 
   </script>
     
     
@@ -137,11 +146,6 @@
 	       	po.src = 'https://apis.google.com/js/client:plusone.js';
 	       	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
      	})();
-    	
-    	
-    	
-    	
-    	
     	
     </script>
   

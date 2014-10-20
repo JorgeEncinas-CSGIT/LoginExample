@@ -38,13 +38,22 @@ public class LoginExampleServlet extends HttpServlet
 		
 		log.severe("doGet \n");
 		
+		log.warning("RequestURI 		="+req.getRequestURI());
 		
 		UserService userService = UserServiceFactory.getUserService();
 		
 		if(userService.isUserLoggedIn())
 		{
-			System.out.println("	= UserLoggedIn =\n");
+			System.out.println("	= UserLoggedIn =\n");			
 			User ciok = userService.getCurrentUser();
+			 
+			if(ciok.getEmail().indexOf("csgit.com") != -1) 
+			{
+				System.out.println("		>> DOMINIO CSGIT <<\n");
+				log.warning("		>> DOMINIO CSGIT <<\n"); 
+			}
+
+			
 			System.out.println("ciok.getAuthDomain()		="+ciok.getAuthDomain()); 
 			System.out.println("ciok.getEmail()			="+ciok.getEmail()); 
 			System.out.println("ciok.getFederatedIdentity() 	="+ciok.getFederatedIdentity()); 
@@ -77,7 +86,10 @@ public class LoginExampleServlet extends HttpServlet
 		{
 			//resp.getWriter().println("Please <a href='"+userService.createLoginURL(req.getRequestURI())+"'> LogIn </a>");
 			//resp.getWriter().println("\n\nEntrar <a href='"+userService.createLoginURL(req.getRequestURI(), "csgit.com.mx")+"'> CSGIT </a>");
+			
 			resp.getWriter().println("\n\nEntrar <a href='"+userService.createLoginURL(req.getRequestURI())+"'> CSGIT </a>");
+			
+			
 		}
 	}
 	
