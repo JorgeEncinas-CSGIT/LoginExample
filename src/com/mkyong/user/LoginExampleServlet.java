@@ -76,8 +76,11 @@ public class LoginExampleServlet extends HttpServlet
 		else 
 		{
 			//resp.getWriter().println("Please <a href='"+userService.createLoginURL(req.getRequestURI())+"'> LogIn </a>");
-			resp.getWriter().println("\n\nEntrar <a href='"+userService.createLoginURL(req.getRequestURI(), "csgit.com.mx")+"'> CSGIT </a>");
-
+			//resp.getWriter().println("\n\nEntrar <a href='"+userService.createLoginURL(req.getRequestURI(), "csgit.com.mx")+"'> CSGIT </a>");
+			resp.getWriter().println("\n\nEntrar <a href='"+userService.createLoginURL(req.getRequestURI())+"'> CSGIT </a>");
 		}
 	}
+	
+	
+	
 }
