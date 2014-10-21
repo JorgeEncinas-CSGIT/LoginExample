@@ -1,12 +1,16 @@
 package com.mkyong.user;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
+
+import javax.servlet.http.HttpSession;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.Charset;
@@ -15,6 +19,7 @@ import java.util.logging.Logger;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
 
 
 @SuppressWarnings("serial")
@@ -33,6 +38,26 @@ public class LoginExampleServlet extends HttpServlet
 		query.includeAppLogs(true);
 		query.offset("Se llamo correctamente el metodo doGet +++++++++++++++++++++++++++++++++++++++++++++++++++");
 		*/
+		
+		PrintWriter out = resp.getWriter();
+		resp.setContentType("text/json");
+		log.severe("Tipo de Peticion: "+req.getParameter("objectJson"));
+		System.out.println("Tipo de Peticion: "+req.getParameter("objectJson"));
+		String parametro = req.getParameter("objectJson");
+		
+		if(parametro.contains("loginPlus"))
+		{
+			System.out.println("Entra a peticion_plus");
+			log.severe("Entra a peticion_plus");
+			HttpSession sessionPlus = req.getSession(true);
+			System.out.println("ID Session Plus: "+sessionPlus.getId());
+			log.severe("ID Session Plus: "+sessionPlus.getId());
+			out.write(new Gson().toJson("ok"));
+			return;
+		}
+		
+		
+		
 		
 		System.out.println("doGet \n");
 		
