@@ -10,107 +10,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>App Engine</title>
-  
-     <script type="text/javascript">
-  /*
-   * Activado cuando el usuario acepta el inicio de sesiÃ³n, cancela o cierra el
-   * cuadro de diÃ¡logo de autorizaciÃ³n.
-   */
-  function signinCallback(authResult) 
-  {
-    if (authResult) 
-    {
-    	//confirm("authResult");
-    	if (authResult['error'] == undefined)
-	    {
-    		confirm("Token recuperado");
-	        gapi.auth.setToken(authResult); // Almacena el token recuperado.
-	        //toggleElement("signinButton"); // Oculta el inicio de sesion si se ha accedido correctamente.
-	        getEmail();                    // Activa la solicitud para obtener la direcciÃ³n de correo electrÃ³nico.
-	        //confirm("undefined");
-	    } 
-	    else 
-	    {
-	    	confirm("Sin Token");
-	    	console.log('An error occurred');
-	    }
-    } 
-    else
-    {
-    	alert("Empty authResult");
-      	console.log('Empty authResult');  // Se ha producido algun error
-    }
-  }
-
-  /*
-   * Inicia la solicitud del punto final userinfo para obtener la direccion de correo electronico del
-   * usuario. Esta funcion se basa en gapi.auth.setToken que contiene un token
-   * de acceso de OAuth valido.
-   *
-   * Cuando se completa la solicitud, se activa getEmailCallback y recibe
-   * el resultado de la solicitud.
-   */
-  function getEmail()
-  {
-	//alert("getEmail ");
-    // Carga las bibliotecas oauth2 para habilitar los metodos userinfo.
-    gapi.client.load('oauth2', 'v2', function() 
-   	{
-    	var request = gapi.client.oauth2.userinfo.get();
-    	
-        request.execute(getEmailCallback);
-        redireccionar();
-        //llamaServlet();
-    });
-  }
-  
-  function llamaServlet()
-  {
-	  alert("llamaServlet ");
-  }
-
-  function getEmailCallback(obj)
-  {
-  	  var el = document.getElementById('email');
-  	  //alert("getEmailCallback 1 ");
-      var email = '';
-      //confirm("Inspeccion: "+obj);
-
-      if (obj['email']) 
-      {
-    	  alert("getEmailCallback 2");
-      	  email = 'Email: ' + obj['email'];
-      }
-
-      console.log(obj);   // Sin comentario para inspeccionar el objeto completo.
-      el.innerHTML = email;
-      //toggleElement('email');
-  }
-
-  function toggleElement(id) 
-  {
-	  alert("toggleElement "+id);
-	  var el = document.getElementById(id);
-	  
-	  if (el.getAttribute('class') == 'hide') 
-	  {
-		  alert("is hided "+id);
-		  el.setAttribute('class', 'show');
-	  }
-	  else 
-	  {
-		  alert("is showed "+id);
-	      el.setAttribute('class', 'hide');
-	  }
-  }
-  
-  function redireccionar() 
-  {
-	  location.href="http://1-dot-brave-cistern-735.appspot.com/loginexample"
-  } 
-  </script>
-    
-    
+    <script src="/js/login.js"></script>
   </head>
 
   <body>
@@ -127,11 +27,14 @@
     <span id="signinButton">
 	  	<span
 		    class="g-signin"
-		    data-callback="signinCallback"
-		    data-clientid="18651616556-bnmp1spp3jolvo2lhu317e8bn55l7bpa.apps.googleusercontent.com"
-		    data-cookiepolicy="single_host_origin"
-		    data-requestvisibleactions="http://schemas.google.com/AddActivity"
-		    data-scope="https://www.googleapis.com/auth/plus.login">
+			data-height="standard"
+			data-theme="dark"
+			data-width="standard"
+			data-callback="signinCallback"
+			data-clientid="18651616556-bnmp1spp3jolvo2lhu317e8bn55l7bpa.apps.googleusercontent.com"
+			data-cookiepolicy="single_host_origin"
+			data-requestvisibleactions="http://schemas.google.com/AddActivity"
+			data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email">		    
 	  	</span>
 	</span>
   </body>
@@ -148,7 +51,4 @@
      	})();
     	
     </script>
-  
-  
-  
 </html>
